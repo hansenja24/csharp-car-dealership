@@ -3,28 +3,36 @@ using System.Collections.Generic;
 
 class Car
 {
-  private int _code;
-  public string MakeModel;
-  public int Price;
-  public int Miles;
+  private string _MakeModel;
+  private int _Price;
+  private int _Miles;
   public bool Availability;
 
-  public Car(string CarModel, int CarPrice = 25000, int CarMiles = 0)
+  public Car()
   {
-    MakeModel = CarModel;
-    Price = CarPrice;
-    Miles = CarMiles;
     Availability = true;
   }
 
-  public void SetCode(int newCode)
+  public void SetCode(string newModel, int newPrice, int newMiles)
   {
-    _code = newCode;
+    _MakeModel = newModel;
+    _Price = newPrice;
+    _Miles = newMiles;
   }
 
-  public int GetCode()
+  public int GetPrice()
   {
-    return _code;
+    return _Price;
+  }
+
+  public string GetModel()
+  {
+    return _MakeModel;
+  }
+
+  public int GetMiles()
+  {
+    return _Miles;
   }
 }
 
@@ -32,23 +40,25 @@ public class Program
 {
   public static void Main()
   {
-    Car porsche = new Car("2014 Porsche 911",114991,7864);
-    Car ford = new Car("2014 Ford F450",55995);
-    Car lexus = new Car("2013 Lexus RX 350",44700,20000);
-    Car mercedes = new Car("Mercedes Benz CLS550",39900);
+    Car porsche = new Car();
+    porsche.SetCode("2014 Porsche 911",114991,7864);
 
-    porsche.SetCode(11);
-    ford.SetCode(12);
-    lexus.SetCode(13);
-    mercedes.SetCode(21);
+    Car ford = new Car();
+    ford.SetCode("2014 Ford F450",55995,14241);
+
+    Car lexus = new Car();
+    lexus.SetCode("2013 Lexus RX 350",44700,20000);
+
+    Car mercedes = new Car();
+    mercedes.SetCode("Mercedes Benz CLS550",39900,37979);
+
     mercedes.Availability = false;
 
     List<Car> Cars = new List<Car>() {porsche, ford, lexus, mercedes};
 
     foreach(Car automobile in Cars)
     {
-      Console.WriteLine(automobile.MakeModel);
-      Console.WriteLine(automobile.GetCode());
+      Console.WriteLine(automobile.GetModel());
     }
 
     Console.WriteLine("Enter maximum price: ");
@@ -59,7 +69,7 @@ public class Program
 
     foreach (Car automobile in Cars)
     {
-      if (automobile.Price < maxPrice)
+      if (automobile.GetPrice() < maxPrice)
       {
         CarsMatchingSearch.Add(automobile);
       }
@@ -68,8 +78,7 @@ public class Program
     foreach(Car automobile in CarsMatchingSearch)
     {
       if(automobile.Availability){
-        Console.WriteLine(automobile.MakeModel);
-        Console.WriteLine(automobile.GetCode());
+        Console.WriteLine(automobile.GetModel());
       }
     }
   }
